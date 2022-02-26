@@ -27,11 +27,11 @@
 
 int main(int argc, char *argv[]) {
   std::string model = argv[1];
+  std::cout << "Kria ML Life Guard";
   return vitis::ai::main_for_video_demo(
       argc, argv,
       [model] {
-      std::cout << "Kria ML Life Guard";
-        return vitis::ai::FaceDetect::create(model);
+          return vitis::ai::FaceDetect::create(model);
       },
       process_result, 2);
 }
