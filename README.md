@@ -1,9 +1,16 @@
 # Kria Kitchen Lifeguard
 Xilinx Kria KV260 Kitchen Lifeguard
 
-# Setting the Kria KV260
+## Setting the Kria KV260
+You have to install the Vitis AI Runtime on your own image. The version of the board image should be 2021.2 or above.
 
-densebox_640_360
+
+### Step 1: Installing a Board Image
+A system images for the KV260 starter kit can be downloaded from [here](https://login.xilinx.com/app/xilinxinc_f5awsprod_1/exknv8ms950lm0Ldh0x7/sso/saml)
+
+### Step 2: Flash OS Image to the SD card
+You can use etcher (https://etcher.io/)
+
 
 ## Install Vitis AI Library User Guide
 
