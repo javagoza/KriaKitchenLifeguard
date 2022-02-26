@@ -37,3 +37,30 @@ g++ -std=c++17 -O2 -I. -o klifeguard klifeguard.cpp -lvitis_ai_library-facedetec
 The Kitchen ML Lifeguard uses the Face Detection library.
 Face Detection uses the DenseBox neural network to detect human faces. The input is a picture with the faces you want to detect and the output is a vector containing the information of each detection box. 
 
+<img src="images/facedetect.jpg" alt="Face Detection" width="150"/>
+
+
+vitis::ai::FaceDetect
+Base class for detecting the position of faces in the input image (cv::Mat).
+Input is an image (cv::Mat).
+
+Output is a vector of position and score for faces in the input image.
+
+Sample code:
+
+```
+auto image = cv::imread("sample_facedetect.jpg");
+auto network = vitis::ai::FaceDetect::create(
+               "densebox_640_360",
+               true);
+auto result = network->run(image);
+for (const auto &r : result.rects) {
+   auto score = r.score;
+   auto x = r.x * image.cols;
+   auto y = r.y * image.rows;
+   auto width = r.width * image.cols;
+   auto height = r.height * image.rows;
+}
+```
+
+
