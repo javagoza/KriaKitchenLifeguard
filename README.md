@@ -76,6 +76,8 @@ for (const auto &r : result.rects) {
 
 ![ML Starter Kit Carrier Card PMOD connector](images/pmodconnector.jpg)
 
-https://www.xilinx.com/support/documentation/user_guides/som/ug1091-carrier-card-design.pdf
+![SOM240_1 Connector Pinout](images/som240_1connectorpinout.jpg)
+
+[Kria SOM Carrier Card Design Guide](https://www.xilinx.com/support/documentation/user_guides/som/ug1091-carrier-card-design.pdf)
 
 
