@@ -75,3 +75,7 @@ for (const auto &r : result.rects) {
 #### ML Starter Kit Carrier Card PMOD connector
 
 ![ML Starter Kit Carrier Card PMOD connector](images/pmodconnector.jpg)
+
+https://www.xilinx.com/support/documentation/user_guides/som/ug1091-carrier-card-design.pdf
+
+
