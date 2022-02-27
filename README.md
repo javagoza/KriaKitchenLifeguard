@@ -70,4 +70,8 @@ for (const auto &r : result.rects) {
 }
 ```
 
+### Hardware
 
+#### ML Starter Kit Carrier Card PMOD connector
+
+![ML Starter Kit Carrier Card PMOD connector](images/pmodconector.jpg)
