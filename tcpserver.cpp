@@ -51,7 +51,7 @@ int main()
    server_addr.sin_family = AF_INET;
    server_addr.sin_port = htons(8000);
    //server_addr.sin_addr = htonl(INADDR_ANY); //inet_addr("127.0.0.1");
-   server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+   server_addr.sin_addr.s_addr = inet_addr("192.168.2.95");
      
    ret = bind(sockfd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr_in));
    if (ret == 0)
