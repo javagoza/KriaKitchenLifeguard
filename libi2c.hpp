@@ -1,4 +1,4 @@
-#define DEV_PATH 	"/dev/i2c/0"
+#define DEV_PATH 	"/dev/i2c-1"
 #define DEV_ID 		0x4b
 
 #define T_MSB  0x00
