@@ -4,9 +4,7 @@
 
 #include "libi2c.hpp"
 
-int main(argc, argv)
-     int argc;
-     char *argv[];
+int main()
 {
   double temp;
 
