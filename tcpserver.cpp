@@ -104,7 +104,7 @@ void report_and_exit(const char* msg) {
   exit(-1); /* EXIT_FAILURE */
 }
 
-int readData() {
+string readData() {
   struct flock lock;
   lock.l_type = F_WRLCK;    /* read/write (exclusive) lock */
   lock.l_whence = SEEK_SET; /* base for seek offsets */
@@ -125,10 +125,13 @@ int readData() {
   if (fcntl(fd, F_SETLK, &lock) < 0)
     report_and_exit("can't get a read-only lock...");
 
+   
   /* Read the bytes (they happen to be ASCII codes) one at a time. */
-  int c; /* buffer for read bytes */
-  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
-    write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
+  std::getline(nameFileout, data);
+     
+  //int c; /* buffer for read bytes */
+//  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
+ //   write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
 
   /* Release the lock explicitly. */
   lock.l_type = F_UNLCK;
@@ -136,5 +139,5 @@ int readData() {
     report_and_exit("explicit unlocking failed...");
 
   close(fd);
-  return 0;
+  return data;
 }
