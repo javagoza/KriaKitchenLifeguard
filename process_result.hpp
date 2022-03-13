@@ -21,18 +21,22 @@
 cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
   cv::Mat image;
-  std::string str;
+  std::string legend;
+  char timeStrBuffer[256];
+  
   cv::resize(m1, image, cv::Size{result.width, result.height});
   
   time_t t = time(NULL);                                                        
   struct tm time = *localtime(&t);  
   
-  char buffer[256];
-
-  strftime(buffer, sizeof(buffer), "Unattended since: %a %b %d %H:%M:%S %Y", &time);
   
-  str = buffer;
-  cv::putText(image,str,cv::Point(50,50),cv::FONT_HERSHEY_DUPLEX,1,cv::Scalar(0,255,0),2,false);
+
+  strftime(timeStrBuffer, sizeof(buffer), "%a %b %d %H:%M:%S %Y", &time);
+  
+  legend = "Unattended since:";
+  cv::putText(image,legend,cv::Point(1,50),cv::FONT_HERSHEY_COMPLEX_SMALL,1,cv::Scalar(0,255,0),1,false);
+  cv::putText(image,timeStrBuffer,cv::Point(1,60),cv::FONT_HERSHEY_COMPLEX_SMALL,1,cv::Scalar(0,255,255),1,false);
+
   for (const auto &r : result.rects) {
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
                           << r.x << " "             //
