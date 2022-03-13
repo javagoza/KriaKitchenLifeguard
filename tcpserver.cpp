@@ -49,7 +49,7 @@ int main()
         perror("Bind");        
         return -1;
    }    
-   
+   while(1) {
    ret = listen(sockfd, 5);
    if (ret == 0)
    {
@@ -74,6 +74,8 @@ int main()
         return -1;
    }
    
+   readData(&buf, sizeof(buf));
+   
    ret = send(sockfd_client, buf, sizeof(buf), 0);
    if(ret == -1)
    {
@@ -96,8 +98,7 @@ int main()
         printf ("Message received from client :- %s : size = %d\n", buf, ret); 
    }
    
-   //while(1);
-   sleep(10);
+   }
    
  }
 
