@@ -14,6 +14,7 @@
 #include <fcntl.h>
 
 #define FileName "data.dat"
+#define BUF_SIZE 8192
 
 int main()
 {
@@ -106,8 +107,8 @@ void report_and_exit(const char* msg) {
   exit(-1); /* EXIT_FAILURE */
 }
 
-std::string readData() {
-  std::string data;
+const  char* readData() {
+  char buffer[BUF_SIZE];
   struct flock lock;
   lock.l_type = F_WRLCK;    /* read/write (exclusive) lock */
   lock.l_whence = SEEK_SET; /* base for seek offsets */
@@ -130,11 +131,15 @@ std::string readData() {
 
    
   /* Read the bytes (they happen to be ASCII codes) one at a time. */
-  std::getline(nameFileout, data);
+
      
   //int c; /* buffer for read bytes */
 //  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
  //   write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
+   
+  ret_in = read (fd, &buffer, BUF_SIZE);
+   
+  
 
   /* Release the lock explicitly. */
   lock.l_type = F_UNLCK;
@@ -142,5 +147,5 @@ std::string readData() {
     report_and_exit("explicit unlocking failed...");
 
   close(fd);
-  return data;
+  return buffer;
 }
