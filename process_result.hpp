@@ -23,6 +23,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#define FileName "data.dat"
 
 cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
