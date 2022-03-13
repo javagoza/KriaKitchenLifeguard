@@ -25,6 +25,9 @@
 #include <string.h>
 #define FileName "data.dat"
 
+void report_and_exit(const char* msg);
+int writeLastTimeSeen(const char* msg);
+
 cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
   cv::Mat image;
