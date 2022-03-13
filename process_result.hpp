@@ -16,12 +16,23 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <string>
+#include<time.h>
 
 cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
   cv::Mat image;
   std::string str;
   cv::resize(m1, image, cv::Size{result.width, result.height});
+  
+  time_t t = time(NULL);                                                        
+  struct tm time = *localtime(&t);  
+  
+  char buffer[256];
+
+  strftime(buffer, sizeof(buffer), "Unattended since: %a %b %d %H:%M:%S %Y", &time);
+  
+  str = buffer;
+  cv::putText(image,str,cv::Point(50,50),cv::FONT_HERSHEY_DUPLEX,1,cv::Scalar(0,255,0),2,false);
   for (const auto &r : result.rects) {
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
                           << r.x << " "             //
@@ -33,8 +44,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                            cv::Size{(int)(r.width * image.cols),
                                     (int)(r.height * image.rows)}},
                   0xff);
-    str = "TIME";
-    cv::putText(image,str,cv::Point(50,50),cv::FONT_HERSHEY_DUPLEX,1,cv::Scalar(0,255,0),2,false);
+
   }
 
   return image;
