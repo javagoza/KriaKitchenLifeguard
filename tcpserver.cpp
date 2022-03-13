@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string> //memset
+#include <string> 
+#include <string.h> //memset
+
 
 #include <sys/types.h>      
 #include <sys/socket.h>
