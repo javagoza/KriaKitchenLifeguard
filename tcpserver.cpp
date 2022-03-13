@@ -107,8 +107,8 @@ void report_and_exit(const char* msg) {
   exit(-1); /* EXIT_FAILURE */
 }
 
-const  char* readData() {
-  char buffer[BUF_SIZE];
+int readData(char* buffer, int bufferSize) {
+  
   struct flock lock;
   lock.l_type = F_WRLCK;    /* read/write (exclusive) lock */
   lock.l_whence = SEEK_SET; /* base for seek offsets */
@@ -137,7 +137,7 @@ const  char* readData() {
 //  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
  //   write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
    
-  ret_in = read (fd, &buffer, BUF_SIZE);
+  int ret_in = read (fd, &buffer, bufferSize);
    
   
 
@@ -147,5 +147,5 @@ const  char* readData() {
     report_and_exit("explicit unlocking failed...");
 
   close(fd);
-  return buffer;
+  return ret_in;
 }
