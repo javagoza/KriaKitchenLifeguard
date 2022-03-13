@@ -53,12 +53,12 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   strftime(timeStrBuffer, sizeof(timeStrBuffer), "Time: %H:%M:%S", &timeTm);
   cv::putText(image,timeStrBuffer,cv::Point(1,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(255,255,255),1,false);
   
-  strftime(unattendedTimeStrBuffer, sizeof(timeStrBuffer), "Unatt. since: %H:%M:%S", &lastTimeTm);
+  strftime(unattendedTimeStrBuffer, sizeof(unattendedTimeStrBuffer), "Unatt. since: %H:%M:%S", &lastTimeTm);
   cv::putText(image,unattendedTimeStrBuffer,cv::Point(380,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(0,255,0),1,false);
 
   for (const auto &r : result.rects) {
     lastTimeSeenPeople = actualTime;
-    strftime(unattendedTimeStrBuffer, sizeof(timeStrBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
+    strftime(unattendedTimeStrBuffer, sizeof(unattendedTimeStrBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
     writeLastTimeSeen(unattendedTimeStrBuffer);
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
                           << r.x << " "             //
