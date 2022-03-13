@@ -98,7 +98,6 @@ int writeLastTimeSeen(const char* msg) {
     report_and_exit("fcntl failed to get lock...");
   else {
     write(fd, msg, strlen(msg)); /* populate data file */
-    fprintf(stderr, "Process %d has written to data file...\n", lock.l_pid);
   }
 
   /* Now release the lock explicitly. */
