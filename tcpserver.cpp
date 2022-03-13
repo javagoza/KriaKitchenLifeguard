@@ -77,7 +77,7 @@ int main()
         return -1;
    }
    
-   readData(&buf, sizeof(buf));
+   readData(buf, sizeof(buf));
    
    ret = send(sockfd_client, buf, sizeof(buf), 0);
    if(ret == -1)
