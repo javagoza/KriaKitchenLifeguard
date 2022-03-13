@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <string.h>
+
 #define FileName "data.dat"
 
 void report_and_exit(const char* msg);
