@@ -31,7 +31,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   
   
 
-  strftime(timeStrBuffer, sizeof(buffer), "%a %b %d %H:%M:%S %Y", &time);
+  strftime(timeStrBuffer, sizeof(timeStrBuffer), "%a %b %d %H:%M:%S %Y", &time);
   
   legend = "Unattended since:";
   cv::putText(image,legend,cv::Point(1,50),cv::FONT_HERSHEY_COMPLEX_SMALL,1,cv::Scalar(0,255,0),1,false);
