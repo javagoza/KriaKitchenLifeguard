@@ -58,6 +58,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
 
   for (const auto &r : result.rects) {
     lastTimeSeenPeople = actualTime;
+    strftime(unattendedTimeStrBuffer, sizeof(timeStrBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
     writeLastTimeSeen(unattendedTimeStrBuffer);
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
                           << r.x << " "             //
