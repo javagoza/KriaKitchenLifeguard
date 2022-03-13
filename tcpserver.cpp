@@ -18,11 +18,9 @@ int main()
    int sockfd, sockfd_client;
    int ret = 0;
    socklen_t sock_pkt_size = 0;
-   char buf[] = "Hello to Socket programming : Message from Server";
+   char buf[] = "Kria KV260 Kitchen Lifeguard";
    
    struct sockaddr_in server_addr, client_addr;
-    
-    //int socket(int domain, int type, int protocol);
     
    sockfd = socket(AF_INET, SOCK_STREAM, 0);
    if (sockfd != -1)
@@ -31,17 +29,13 @@ int main()
    }
    else
    {
-        perror("socket sockfd");
-        
+        perror("socket sockfd");        
         return -1;
-   }
-   
+   }  
    
    server_addr.sin_family = AF_INET;
    server_addr.sin_port = htons(8000);
-
-   server_addr.sin_addr.s_addr = inet_addr("192.168.2.95");
-     
+   server_addr.sin_addr.s_addr = inet_addr("192.168.2.95");     
    ret = bind(sockfd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr_in));
    if (ret == 0)
    {
@@ -49,8 +43,7 @@ int main()
    }
    else
    {
-        perror("Bind");
-        
+        perror("Bind");        
         return -1;
    }    
    
@@ -61,8 +54,7 @@ int main()
    }
    else
    {
-        perror("listen");
-        
+        perror("listen");        
         return -1;
    }    
 
@@ -75,8 +67,7 @@ int main()
    }
    else
    {
-        perror("socket sockfd_client");
-        
+        perror("socket sockfd_client");        
         return -1;
    }
    
