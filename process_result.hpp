@@ -20,6 +20,7 @@
 cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
   cv::Mat image;
+  std::string str;
   cv::resize(m1, image, cv::Size{result.width, result.height});
   for (const auto &r : result.rects) {
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
@@ -32,6 +33,8 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                            cv::Size{(int)(r.width * image.cols),
                                     (int)(r.height * image.rows)}},
                   0xff);
+    str = "TIME";
+    cv::putText(image,str,cv::Point(50,50),cv::FONT_HERSHEY_DUPLEX,1,cv::Scalar(0,255,0),2,false);
   }
 
   return image;
