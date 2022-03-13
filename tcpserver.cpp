@@ -16,6 +16,9 @@
 #define FileName "data.dat"
 #define BUF_SIZE 8192
 
+void report_and_exit(const char* msg);
+int readData(char* buffer, int bufferSize);
+
 int main()
 {
    int sockfd, sockfd_client;
