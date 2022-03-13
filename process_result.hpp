@@ -22,14 +22,14 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
   cv::Mat image;
   char timeStrBuffer[256];
+  static time_t lastTimeSeenPeople;
   
   cv::resize(m1, image, cv::Size{result.width, result.height});
   
-  time_t t = time(NULL);                                                        
-  struct tm time = *localtime(&t);  
+  time_t actualTime = time(NULL);
   
+  struct tm time = *localtime(&lastTimeSeenPeople);  
   
-
   strftime(timeStrBuffer, sizeof(timeStrBuffer), "Unatt. since: %H:%M:%S", &time);
   cv::rectangle(image,
                   cv::Rect{cv::Point(0, result.height - 24),
@@ -39,16 +39,18 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   cv::putText(image,timeStrBuffer,cv::Point(1,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(255,255,255),1,false);
 
   for (const auto &r : result.rects) {
+    lastTimeSeenPeople = actualTime;
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
                           << r.x << " "             //
                           << r.y << " "             //
                           << r.width << " "         //
-                          << r.height;
+                          << r.height << " time:" << timeStrBuffer;
+    
     cv::rectangle(image,
                   cv::Rect{cv::Point(r.x * image.cols, r.y * image.rows),
                            cv::Size{(int)(r.width * image.cols),
                                     (int)(r.height * image.rows)}},
-                  0xff);
+                  0xff, 2);
 
   }
 
