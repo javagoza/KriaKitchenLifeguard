@@ -34,13 +34,13 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   strftime(timeStrBuffer, sizeof(timeStrBuffer), "%a %b %d %H:%M:%S %Y", &time);
   
   legend = "Unattended since:";
-  cv::putText(image,legend,cv::Point(1,result.height - 24),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(0,255,0),1,false);
+  cv::putText(image,legend,cv::Point(1,result.height - 18),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(180,180,180),1,false);
   cv::rectangle(image,
                   cv::Rect{cv::Point(0, result.height - 24),
                            cv::Size{result.width, 24}},
                   cv::Scalar(30,30,30),-1);
   
-  cv::putText(image,timeStrBuffer,cv::Point(1,result.height - 12),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(255,0,0),1,false);
+  cv::putText(image,timeStrBuffer,cv::Point(1,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(255,255,255),1,false);
 
   for (const auto &r : result.rects) {
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
