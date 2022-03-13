@@ -35,6 +35,11 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   
   legend = "Unattended since:";
   cv::putText(image,legend,cv::Point(1,50),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(0,255,0),1,false);
+  cv::rectangle(image,
+                  cv::Rect{cv::Point(0, 0),
+                           cv::Size{result.width, 16}},
+                  cv::Scalar(10,10,10),-1);
+  
   cv::putText(image,timeStrBuffer,cv::Point(1,60),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(255,0,0),1,false);
 
   for (const auto &r : result.rects) {
