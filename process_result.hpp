@@ -42,7 +42,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   cv::putText(image,timeStrBuffer,cv::Point(1,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(255,255,255),1,false);
   
   strftime(timeStrBuffer, sizeof(timeStrBuffer), "Unatt. since: %H:%M:%S", &lastTimeTm);
-  cv::putText(image,timeStrBuffer,cv::Point(400,result.height - 9),cv::FONT_HERSHEY_PLAIN ,2,cv::Scalar(0,255,0),1,false);
+  cv::putText(image,timeStrBuffer,cv::Point(380,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(0,255,0),1,false);
 
   for (const auto &r : result.rects) {
     lastTimeSeenPeople = actualTime;
