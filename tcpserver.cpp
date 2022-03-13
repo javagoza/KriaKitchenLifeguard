@@ -104,14 +104,15 @@ void report_and_exit(const char* msg) {
   exit(-1); /* EXIT_FAILURE */
 }
 
-string readData() {
+std::string readData() {
+  std::string data;
   struct flock lock;
   lock.l_type = F_WRLCK;    /* read/write (exclusive) lock */
   lock.l_whence = SEEK_SET; /* base for seek offsets */
   lock.l_start = 0;         /* 1st byte in file */
   lock.l_len = 0;           /* 0 here means 'until EOF' */
   lock.l_pid = getpid();    /* process id */
-
+  
   int fd; /* file descriptor to identify a file within a process */
   if ((fd = open(FileName, O_RDONLY)) < 0)  /* -1 signals an error */
     report_and_exit("open to read failed...");
