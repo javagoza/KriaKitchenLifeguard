@@ -56,7 +56,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   cv::putText(image,unattendedTimeStrBuffer,cv::Point(380,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(0,255,0),1,false);
   
   // pass message with last seen time through shared file
-  if( result.rects.size() > 0 {
+  if( result.rects.size() > 0 ) {
     lastTimeSeenPeople = actualTime;
     strftime(dataBuffer, sizeof(dataBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
     writeLastTimeSeen(dataBuffer);
