@@ -39,6 +39,13 @@ g++ -std=c++17 -O2 -I. -o klifeguard klifeguard.cpp -lvitis_ai_library-facedetec
 
 ./klifeguard densebox_640_360 0 -t 8
 
+To test the program with a USB camera as input, run the following command:
+./klifeguard densebox_640_360 0 -t 8
+Here, 0 is the first USB camera device node. If you have multiple USB cameras, the value is 1,2,3, etc., where, -t is the number of threads.
+
+Important: Enable X11 forwarding with the following command (suppose in this example that the host machine IP address is 192.168.0.10) when logging in to the board using an SSH terminal because the video examples require a Linux windows system to work properly.
+export DISPLAY=192.168.0.10:0.0
+
 
 ## Face Detection
 The Kitchen ML Lifeguard uses the Face Detection library.
