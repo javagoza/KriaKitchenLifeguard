@@ -116,9 +116,11 @@ int readData(char* buffer, int bufferSize) {
      
   int c; /* buffer for read bytes */
   int i = 0;
-  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
+  while (read(fd, &c, 1) > 0) {   /* 0 signals EOF */
     //write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
     buffer[i++] = c;
+  }
+   buffer[i] = '\0';
    
   //int ret_in = read (fd, &buffer, bufferSize);  
 
