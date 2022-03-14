@@ -64,15 +64,15 @@ int main (int argc, char *argv[]) {
            return -1;
       }
       
-      memset(buf, sizeof(buf), 0);
-      readData(buf, sizeof(buf));
-      ret = send(sockfd_client, buf, sizeof(buf), 0);
+      memset(buf, 0, sizeof(buf));
+      int readLenght = readData(buf, sizeof(buf));
+      ret = send(sockfd_client, buf, readLenght, 0);
       if(ret == -1) {
            perror("Socket send");
       } else {
            printf ("Message sent to client:- %s : size = %d\n", buf, ret); 
       }
-      memset(buf, sizeof(buf), 0);
+      memset(buf, 0, sizeof(buf));
       ret = recv(sockfd_client, buf, sizeof(buf), 0);
       if(ret == -1) {
            perror("Socket recv");
