@@ -42,9 +42,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   time_t actualTime = time(NULL);
   
   struct tm lastTimeTm = *localtime(&lastTimeSeenPeople); 
-  struct tm timeTm = *localtime(&actualTime);
-  
- 
+  struct tm timeTm = *localtime(&actualTime); 
   
   cv::rectangle(image,
                   cv::Rect{cv::Point(0, result.height - 24),
@@ -56,11 +54,15 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   
   strftime(unattendedTimeStrBuffer, sizeof(unattendedTimeStrBuffer), "Unatt. since: %H:%M:%S", &lastTimeTm);
   cv::putText(image,unattendedTimeStrBuffer,cv::Point(380,result.height - 9),cv::FONT_HERSHEY_PLAIN ,1,cv::Scalar(0,255,0),1,false);
-
-  for (const auto &r : result.rects) {
+  
+  // pass message with last seen time through shared file
+  if( result.rects.size() > 0 {
     lastTimeSeenPeople = actualTime;
     strftime(dataBuffer, sizeof(dataBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
     writeLastTimeSeen(dataBuffer);
+  }
+     
+  for (const auto &r : result.rects) {
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
                           << r.x << " "             //
                           << r.y << " "             //
