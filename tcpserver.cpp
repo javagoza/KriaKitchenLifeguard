@@ -42,7 +42,9 @@ int main(int argc, char *argv[])
         connfd = accept(listenfd, (struct sockaddr*)NULL, NULL); 
 
         ticks = time(NULL);
-        snprintf(sendBuff, sizeof(sendBuff), "%.24s\r\n", ctime(&ticks));
+        memset(buf, 0, sizeof(sendBuff));
+        int readLenght = readData(sendBuff, sizeof(sendBuff));
+        // snprintf(sendBuff, sizeof(sendBuff), "%.24s\r\n", ctime(&ticks));
         write(connfd, sendBuff, strlen(sendBuff)); 
 
         close(connfd);
