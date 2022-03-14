@@ -114,11 +114,13 @@ int readData(char* buffer, int bufferSize) {
   /* Read the bytes (they happen to be ASCII codes) one at a time. */
 
      
-  //int c; /* buffer for read bytes */
-//  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
- //   write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
+  int c; /* buffer for read bytes */
+  int i = 0;
+  while (read(fd, &c, 1) > 0)    /* 0 signals EOF */
+    //write(STDOUT_FILENO, &c, 1); /* write one byte to the standard output */
+    buffer[i++] = c;
    
-  int ret_in = read (fd, &buffer, bufferSize);  
+  //int ret_in = read (fd, &buffer, bufferSize);  
 
   /* Release the lock explicitly. */
   lock.l_type = F_UNLCK;
@@ -126,5 +128,5 @@ int readData(char* buffer, int bufferSize) {
     report_and_exit("explicit unlocking failed...");
 
   close(fd);
-  return ret_in;
+  return i;
 }
