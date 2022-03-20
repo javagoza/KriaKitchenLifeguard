@@ -44,7 +44,15 @@ Here, 0 is the first USB camera device node. If you have multiple USB cameras, t
 
 Important: Enable X11 forwarding with the following command (suppose in this example that the host machine IP address is 192.168.2.16) when logging in to the board using an SSH terminal because the video examples require a Linux windows system to work properly.
 
-```export DISPLAY=192.168.2.16:0.0```
+```export DISPLAY=192.168.2.48:0.0```
+
+
+## Execute with TCPServer
+
+To start both person detection and the tcpserver to get the date and time of the last person detection.
+
+```sh klifeguard.sh```
+
 
 
 ## Face Detection
