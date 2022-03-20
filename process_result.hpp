@@ -62,17 +62,17 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   // pass message with last seen time through shared file
   if( result.rects.size() > 0 ) {
     lastTimeSeenPeople = actualTime;
-    
-    memset(timeStrBuffer, 0, BUFFER_LEN);
-    memset(unattendedTimeStrBuffer, 0, BUFFER_LEN);
-    memset(dataBuffer, 0, BUFFER_LEN);
-    
-    strftime(timeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &timeTm);
-    strftime(unattendedTimeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &lastTimeTm);
-    sprintf(dataBuffer, "%s,%f,%s\n", unattendedTimeStrBuffer, diff_t, timeStrBuffer);
-    
-    writeLastTimeSeen(dataBuffer);
   }
+  
+  memset(timeStrBuffer, 0, BUFFER_LEN);
+  memset(unattendedTimeStrBuffer, 0, BUFFER_LEN);
+  memset(dataBuffer, 0, BUFFER_LEN);
+
+  strftime(timeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &timeTm);
+  strftime(unattendedTimeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &lastTimeTm);
+  sprintf(dataBuffer, "%s,%f,%s\n", unattendedTimeStrBuffer, diff_t, timeStrBuffer);
+
+  writeLastTimeSeen(dataBuffer);
      
   for (const auto &r : result.rects) {
     LOG_IF(INFO, is_jpeg) << " " << r.score << " "  //
