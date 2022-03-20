@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
         memset(sendBuff, '0', sizeof(sendBuff));
         int readLenght = readData(sendBuff, sizeof(sendBuff));
         write(connfd, sendBuff, strlen(sendBuff));
+        write(connfd, "\n", 1);
         close(connfd);
         sleep(1);
      }
