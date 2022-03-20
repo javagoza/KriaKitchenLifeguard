@@ -69,7 +69,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
     
     strftime(timeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &timeTm);
     strftime(unattendedTimeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &lastTimeTm);
-    sprintf(dataBuffer, "%s,%s,%.1f\n", timeStrBuffer, unattendedTimeStrBuffer, diff_t);
+    sprintf(dataBuffer, "%s,%f,%s\n", unattendedTimeStrBuffer, diff_t, timeStrBuffer);
     
     writeLastTimeSeen(dataBuffer);
   }
