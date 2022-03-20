@@ -63,9 +63,9 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
     lastTimeSeenPeople = actualTime;
     strftime(timeStrBuffer, sizeof(timeStrBuffer), "%Y-%m-%d %H:%M:%S", &timeTm);
     strftime(unattendedTimeStrBuffer, sizeof(unattendedTimeStrBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
-    sprintf(dataBuffer, "%s|%s|%.1f\n", timeStrBuffer, unattendedTimeStrBuffer, diff_t);
+    sprintf(dataBuffer, "%s|%s|%f\n", timeStrBuffer, unattendedTimeStrBuffer, diff_t);
     
-    writeLastTimeSeen(timeStrBuffer);
+    writeLastTimeSeen(dataBuffer);
   }
      
   for (const auto &r : result.rects) {
