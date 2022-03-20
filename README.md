@@ -36,7 +36,7 @@ g++ -std=c++17 -O2 -I. -o klifeguard klifeguard.cpp -lvitis_ai_library-facedetec
 ## Execute
 To test the program with a USB camera as input, run the following command:
 
-``./klifeguard densebox_320_320 0 -t 8```
+```./klifeguard densebox_320_320 0 -t 8```
 or
 ```./klifeguard densebox_640_360 0 -t 8```
 
