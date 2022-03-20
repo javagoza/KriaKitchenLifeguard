@@ -44,10 +44,7 @@ int main(int argc, char *argv[])
         ticks = time(NULL);
         memset(sendBuff, '0', sizeof(sendBuff));
         int readLenght = readData(sendBuff, sizeof(sendBuff));
-        // snprintf(sendBuff, sizeof(sendBuff), "%.24s\r\n", ctime(&ticks));
         write(connfd, sendBuff, strlen(sendBuff));
-        write(connfd, "\r\n", 2); 
-
         close(connfd);
         sleep(1);
      }
