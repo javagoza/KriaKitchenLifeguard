@@ -24,7 +24,7 @@
 #include <unistd.h>
 
 #define FileName "data.dat"
-#BUFFER_LEN 256
+#define BUFFER_LEN 256
 
 void report_and_exit(const char* msg);
 int writeLastTimeSeen(const char* msg);
