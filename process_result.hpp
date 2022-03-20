@@ -24,6 +24,7 @@
 #include <unistd.h>
 
 #define FileName "data.dat"
+#BUFFER_LEN 256
 
 void report_and_exit(const char* msg);
 int writeLastTimeSeen(const char* msg);
@@ -31,10 +32,10 @@ int writeLastTimeSeen(const char* msg);
 cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                        bool is_jpeg) {
   cv::Mat image;
-  char timeStrBuffer[256];
-  char unattendedTimeStrBuffer[256];
-  char dataBuffer[256];
-  char buffer[100];
+  char timeStrBuffer[BUFFER_LEN];
+  char unattendedTimeStrBuffer[BUFFER_LEN];
+  char dataBuffer[BUFFER_LEN];
+  char buffer[BUFFER_LEN];
   double diff_t;
   
   static time_t lastTimeSeenPeople;
@@ -61,9 +62,14 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
   // pass message with last seen time through shared file
   if( result.rects.size() > 0 ) {
     lastTimeSeenPeople = actualTime;
-    strftime(timeStrBuffer, sizeof(timeStrBuffer), "%Y-%m-%d %H:%M:%S", &timeTm);
-    strftime(unattendedTimeStrBuffer, sizeof(unattendedTimeStrBuffer), "%Y-%m-%d %H:%M:%S", &lastTimeTm);
-    sprintf(dataBuffer, "%s|%s|%.1f\n", timeStrBuffer, unattendedTimeStrBuffer, diff_t);
+    
+    memset(timeStrBuffer, 0, BUFFER_LEN);
+    memset(unattendedTimeStrBuffer, 0, BUFFER_LEN);
+    memset(dataBuffer, 0, BUFFER_LEN);
+    
+    strftime(timeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &timeTm);
+    strftime(unattendedTimeStrBuffer, BUFFER_LEN, "%Y-%m-%d %H:%M:%S", &lastTimeTm);
+    sprintf(dataBuffer, "%s,%s,%.1f\n", timeStrBuffer, unattendedTimeStrBuffer, diff_t);
     
     writeLastTimeSeen(dataBuffer);
   }
@@ -73,7 +79,7 @@ cv::Mat process_result(cv::Mat &m1, const vitis::ai::FaceDetectResult &result,
                           << r.x << " "             //
                           << r.y << " "             //
                           << r.width << " "         //
-                          << r.height << " time:" << timeStrBuffer;
+                          << r.height;
     
     cv::rectangle(image,
                   cv::Rect{cv::Point(r.x * image.cols, r.y * image.rows),
