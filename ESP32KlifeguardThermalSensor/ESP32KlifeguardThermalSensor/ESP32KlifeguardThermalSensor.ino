@@ -14,19 +14,34 @@ Author: Enrique Albertos
 #define STASSID ""
 #define STAPSK  ""
 #endif
-#define BUZZER_PIN 18 // ESP32 GIOP18 pin connected to Buzzer's pin
-#define TEMPERATURE_THRESHOLD 41 // temperature threshold to trigger high temperature alerts on appliance 
 
-#define ABSENT_TIME_THRESHOLD 120 // absent person time threshold in seconds
-#define CONN_WAITING_TIME 5000 // time between connections to the Kria Lifeguard People Detection System
+// ESP32 GIOP18 pin connected to Buzzer's pin
+#define BUZZER_PIN 18 
+
+// temperature threshold to trigger high temperature alerts on appliance 
+#define TEMPERATURE_THRESHOLD 41 
+
+// absent person time threshold in seconds
+#define ABSENT_TIME_THRESHOLD 120 
+
+// time between connections to the Kria Lifeguard People Detection System in milliseconds
+#define CONN_WAITING_TIME 5000
 
 Adafruit_MLX90640 mlx;
-float frame[32 * 24]; // buffer for full frame of temperatures
-
+// buffer for full frame of temperatures
+float frame[32 * 24];
 
 
 // Set web server port number to 80
 WiFiServer server(80);
+// Variable to store the HTTP request
+String header;
+// Current time
+unsigned long currentTime = millis();
+// Previous time
+unsigned long previousTime = 0; 
+// Define timeout time in milliseconds (example: 2000ms = 2s)
+const long timeoutTime = 2000;
 
 
 
