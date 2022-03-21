@@ -16,6 +16,10 @@ float frame[32 * 24]; // buffer for full frame of temperatures
 #define STASSID ""
 #define STAPSK  ""
 #endif
+#define BUZZER_PIN 18 // ESP32 GIOP18 pin connected to Buzzer's pin
+#define TEMPERATURE_THRESHOLD 41 // temperature threshold to trigger high temperature alerts on appliance 
+
+#define ABSENT_TIME_THRESHOLD 120 // absent person time threshold in seconds
 
 const char* ssid     = STASSID;
 const char* password = STAPSK;
@@ -23,8 +27,8 @@ const char* password = STAPSK;
 const char* host = "192.168.2.95";
 const uint16_t port = 8000;
 
-#define PRINT_TEMPERATURES
-//#define PRINT_ASCIIART
+float maxtemp = -99.0;
+
 
 WiFiMulti WiFiMulti;
 
@@ -34,6 +38,14 @@ void setup() {
   setupWifi();
   // WiFi.disconnect();
   setupMLX90640();
+}
+
+void tempAlarmOn() {
+  digitalWrite(BUZZER_PIN, HIGH); // turn on
+}
+
+void tempAlarmOff() {
+  digitalWrite(BUZZER_PIN, LOW); // turn on
 }
 
 void setupWifi() {
@@ -160,7 +172,7 @@ void loopMLX() {
   }
   Serial.println();
   Serial.println();
-  float maxtemp = -99.0;
+  
   for (uint8_t h = 0; h < 24; h++) {
     for (uint8_t w = 0; w < 32; w++) {
       float t = frame[h * 32 + w];
@@ -173,4 +185,9 @@ void loopMLX() {
   Serial.print("MAX TEMP ");
   Serial.print(maxtemp, 1);   
   Serial.println();
+  if( maxtemp > TEMPERATURE_THRESHOLD) {
+    tempAlarmOn();
+  } else {
+    tempAlarmOff();
+  }
 }
