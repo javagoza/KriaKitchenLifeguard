@@ -87,22 +87,5 @@ for (const auto &r : result.rects) {
 
 ### Hardware
 
-#### ML Starter Kit Carrier Card PMOD connector
 
-![ML Starter Kit Carrier Card PMOD connector](images/pmodconnector.jpg)
-
-![SOM240_1 Connector Pinout](images/som240_1connectorpinout.jpg)
-
-[Kria SOM Carrier Card Design Guide](https://www.xilinx.com/support/documentation/user_guides/som/ug1091-carrier-card-design.pdf)
-
-
-I2C
-
-[](https://github.com/Xilinx/embeddedsw/tree/master/XilinxProcessorIPLib/drivers/iic)
-
-`i2cdetect -y 0`
-
-`i2cdetect -y 1`
-
-`uname -r`
 
