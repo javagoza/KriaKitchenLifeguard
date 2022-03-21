@@ -1,15 +1,13 @@
 /*
-    This sketch sends a string to a TCP server, and prints a one-line response.
-    You must run a TCP server in your local network.
-    For example, on Linux you can use this command: nc -v -l 3000
+Kria Kitchen Lifeguard Wireless Thermal Sensor Alarm
+for ESP32
+
+Author: Enrique Albertos
 */
 
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include <Adafruit_MLX90640.h>
-
-Adafruit_MLX90640 mlx;
-float frame[32 * 24]; // buffer for full frame of temperatures
 
 #include "secrets.h"
 #ifndef STASSID
@@ -20,6 +18,17 @@ float frame[32 * 24]; // buffer for full frame of temperatures
 #define TEMPERATURE_THRESHOLD 41 // temperature threshold to trigger high temperature alerts on appliance 
 
 #define ABSENT_TIME_THRESHOLD 120 // absent person time threshold in seconds
+#define CONN_WAITING_TIME 5000 // time between connections to the Kria Lifeguard People Detection System
+
+Adafruit_MLX90640 mlx;
+float frame[32 * 24]; // buffer for full frame of temperatures
+
+
+
+// Set web server port number to 80
+WiFiServer server(80);
+
+
 
 const char* ssid     = STASSID;
 const char* password = STAPSK;
@@ -28,16 +37,22 @@ const char* host = "192.168.2.95";
 const uint16_t port = 8000;
 
 float maxtemp = -99.0;
-
+String peopleDetectionState = "";
 
 WiFiMulti WiFiMulti;
 
 void setup() {
-  Serial.begin(115200);
-
+  setupSerial()
   setupWifi();
-  // WiFi.disconnect();
+  setupWebServer();
   setupMLX90640();
+}
+
+void setupSerial() {
+    Serial.begin(115200);
+}
+void setupWebServer() {
+    server.begin();
 }
 
 void tempAlarmOn() {
@@ -124,6 +139,72 @@ void setupMLX90640() {
 void loop() {
   loopTcpClient();
   loopMLX();
+  loopTcpServer();
+}
+
+void loopTcpServer() {
+  WiFiClient client = server.available();   // Listen for incoming clients
+
+  if (client) {                             // If a new client connects,
+    currentTime = millis();
+    previousTime = currentTime;
+    Serial.println("New Client.");          // print a message out in the serial port
+    String currentLine = "";                // make a String to hold incoming data from the client
+    while (client.connected() && currentTime - previousTime <= timeoutTime) {  // loop while the client's connected
+      currentTime = millis();
+      if (client.available()) {             // if there's bytes to read from the client,
+        char c = client.read();             // read a byte, then
+        Serial.write(c);                    // print it out the serial monitor
+        header += c;
+        if (c == '\n') {                    // if the byte is a newline character
+          // if the current line is blank, you got two newline characters in a row.
+          // that's the end of the client HTTP request, so send a response:
+          if (currentLine.length() == 0) {
+            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
+            // and a content-type so the client knows what's coming, then a blank line:
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println("Connection: close");
+            client.println();
+                       
+            // Display the HTML web page
+            client.println("<!DOCTYPE html><html>");
+            client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+            client.println("<link rel=\"icon\" href=\"data:,\">");
+            // CSS to style the web page
+            client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
+            client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
+            client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
+            client.println(".button2 {background-color: #555555;}</style></head>");
+            
+            // Web Page Heading
+            client.println("<body><h1>Kitchen Life Guard Web Server</h1>");
+            
+            // Display current state
+            client.println("<p>Last State " + peopleDetectionState + "</p>");
+            client.println("<p>Actual Temperature " +  String(maxtemp, 1) + "</p>");
+
+            client.println("</body></html>");
+            
+            // The HTTP response ends with another blank line
+            client.println();
+            // Break out of the while loop
+            break;
+          } else { // if you got a newline, then clear currentLine
+            currentLine = "";
+          }
+        } else if (c != '\r') {  // if you got anything else but a carriage return character,
+          currentLine += c;      // add it to the end of the currentLine
+        }
+      }
+    }
+    // Clear the header variable
+    header = "";
+    // Close the connection
+    client.stop();
+    Serial.println("Client disconnected.");
+    Serial.println("");
+  }
 }
 
 void loopTcpClient() {
@@ -138,7 +219,7 @@ void loopTcpClient() {
   if (!client.connect(host, port)) {
     Serial.println("connection failed");
     Serial.println("wait 5 sec...");
-    delay(5000);
+    delay(CONN_WAITING_TIME);
     return;
   }
 
@@ -147,21 +228,14 @@ void loopTcpClient() {
 
   //read back one line from server
   Serial.println("receiving from remote server");
-  while (client.available()) {
-
-    char c = client.read();
-
-    Serial.write(c);
-
-  }
-  String line = client.readStringUntil('\n');
-  Serial.println(line);
+  peopleDetectionState = client.readStringUntil('\n');
+  Serial.println(peopleDetectionState);
 
   Serial.println("closing connection");
   client.stop();
 
   Serial.println("wait 5 sec...");
-  delay(5000);
+  delay(CONN_WAITING_TIME);
 }
 
 void loopMLX() {
