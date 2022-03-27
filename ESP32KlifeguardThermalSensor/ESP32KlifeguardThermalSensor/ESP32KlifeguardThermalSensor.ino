@@ -19,7 +19,7 @@ Author: Enrique Albertos
 #define BUZZER_PIN 18 
 
 // temperature threshold to trigger high temperature alerts on appliance 
-#define TEMPERATURE_THRESHOLD 41 
+#define TEMPERATURE_THRESHOLD 90 
 
 // absent person time threshold in seconds
 #define ABSENT_TIME_THRESHOLD 120 
