@@ -85,9 +85,9 @@ for (const auto &r : result.rects) {
 }
 ```
 
-### Kria Kitchen ML Lifeguard
+### Project blog
 
-[Vitis AI Library User Guide (UG1354)](https://www.hackster.io/javagoza/kria-kitchen-ml-lifeguard-d038f7) 
+[Kria Kitchen ML Lifeguard](https://www.hackster.io/javagoza/kria-kitchen-ml-lifeguard-d038f7) 
 
 
 
