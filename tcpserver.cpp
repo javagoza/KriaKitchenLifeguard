@@ -1,3 +1,17 @@
+/*!
+*   @file tcpserver.cpp
+*
+*   This is part of the Kria Kitchen Lifeguard Project
+*  TCP socket server, retrieves and publishes the last
+*  data published by the people detector. 
+*
+*
+*   Written by Enrique Albertos, with contributions from the 
+*   open source community and Xilinx libraries.
+*   Created: 2022-03-29
+*   Public Domain
+*/
+
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
