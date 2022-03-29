@@ -1,5 +1,5 @@
 /*!
-*   @file klifeguard.cpp
+*   @file process_result.hpp
 *
 *   This is part of the Kria Kitchen Lifeguard Project
 *   People detector, uses a shared file to notify last time 
