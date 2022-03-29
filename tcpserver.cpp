@@ -55,7 +55,6 @@ int main(int argc, char *argv[])
 
 void report_and_exit(const char* msg) {
   perror(msg);
-  //exit(-1); /* EXIT_FAILURE */
 }
 
 int readData(char* buffer, int bufferSize) {
@@ -91,8 +90,6 @@ int readData(char* buffer, int bufferSize) {
   }
    buffer[i] = '\0';
    
-  //int ret_in = read (fd, &buffer, bufferSize);  
-
   /* Release the lock explicitly. */
   lock.l_type = F_UNLCK;
   if (fcntl(fd, F_SETLK, &lock) < 0)
