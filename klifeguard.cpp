@@ -1,3 +1,17 @@
+/*!
+*   @file klifeguard.cpp
+*
+*   This is part of the Kria Kitchen Lifeguard Project
+*   People detector, uses a shared file to notify last time 
+*   a person is detected 
+*
+*
+*   Written by Enrique Albertos, with contributions from the 
+*   open source community and Xilinx libraries.
+*   Created: 2022-03-29
+*   Public Domain
+*/
+
 /*
  * Copyright 2019 Xilinx Inc.
  *
