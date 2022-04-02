@@ -1,5 +1,7 @@
 # Kria Kitchen Lifeguard
-Xilinx Kria KV260 Kitchen Lifeguard
+Xilinx Kria KV260 Kitchen Lifeguard - Hackster.io Adaptive Computing Challenge 2021 with AMD-Xilinx
+Smart device that monitors unattended kitchen cooking appliances using computer vision with Machine Learning.
+See project blog at hackster.io: [KV260 Kitchen ML Lifeguard](https://www.hackster.io/javagoza/kria-kitchen-ml-lifeguard-d038f7)
 
 ## Setting the Kria KV260
 You have to install the Vitis AI Runtime on your own image. The version of the board image should be 2021.2 or above.
